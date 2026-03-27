@@ -139,7 +139,21 @@ export default async function TreatmentPage({ params }: { params: TreatmentPageP
                 {treatment.summary}
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="mt-8 md:hidden">
+                <LeadActionGroup
+                  source={`treatment-page-${treatment.slug}`}
+                  branchId="branch-1"
+                  intentKey={treatment.intentKey}
+                  className="flex flex-col gap-3"
+                  primaryClassName="button-primary w-full"
+                  secondaryClassName="inline-flex min-h-[52px] items-center justify-center border border-navy/15 bg-white px-4 py-3 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-navy transition-colors duration-300 hover:border-navy hover:bg-navy hover:text-white"
+                  tertiaryClassName="inline-flex min-h-[52px] items-center justify-center border border-teal/30 bg-white px-4 py-3 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-teal transition-colors duration-300 hover:border-teal hover:bg-teal hover:text-white"
+                  showDirections={false}
+                  showFormLink
+                />
+              </div>
+
+              <div className="mt-8 hidden flex-wrap gap-4 md:flex">
                 <LeadActionGroup
                   source={`treatment-page-${treatment.slug}`}
                   branchId="branch-1"
@@ -209,13 +223,13 @@ export default async function TreatmentPage({ params }: { params: TreatmentPageP
                   </div>
                 ))}
               </div>
-              <div className="mt-6 flex gap-3 overflow-x-auto border-t border-navy/10 pt-6 pb-1 md:flex-wrap md:overflow-visible md:pb-0">
+              <div className="mt-6 grid gap-3 border-t border-navy/10 pb-1 pt-6 md:flex md:flex-wrap md:overflow-visible md:pb-0">
                 <TrackedLink
                   href="/#locations"
                   eventName={TRACKING_EVENTS.appointmentCtaClick}
                   eventData={{ source: `treatment-local-access-${treatment.slug}` }}
                   ctaLabel="Compare Kakinada branches"
-                  className="inline-flex shrink-0 border border-navy/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-navy/75 transition-colors duration-300 hover:border-teal hover:text-navy"
+                  className="inline-flex shrink-0 items-center justify-center border border-navy/10 px-3 py-3 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-navy/75 transition-colors duration-300 hover:border-teal hover:text-navy md:justify-start md:py-2"
                 >
                   Compare Kakinada branches
                 </TrackedLink>
@@ -224,7 +238,7 @@ export default async function TreatmentPage({ params }: { params: TreatmentPageP
                   eventName={TRACKING_EVENTS.appointmentCtaClick}
                   eventData={{ source: `treatment-local-access-${treatment.slug}` }}
                   ctaLabel="Request callback"
-                  className="inline-flex shrink-0 border border-navy/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-navy/75 transition-colors duration-300 hover:border-teal hover:text-navy"
+                  className="inline-flex shrink-0 items-center justify-center border border-navy/10 px-3 py-3 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-navy/75 transition-colors duration-300 hover:border-teal hover:text-navy md:justify-start md:py-2"
                 >
                   Request callback
                 </TrackedLink>
@@ -233,7 +247,7 @@ export default async function TreatmentPage({ params }: { params: TreatmentPageP
                   eventName={TRACKING_EVENTS.appointmentCtaClick}
                   eventData={{ source: `treatment-local-access-${treatment.slug}` }}
                   ctaLabel="Meet Dr. K. Manoj Kumar"
-                  className="inline-flex shrink-0 border border-navy/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-navy/75 transition-colors duration-300 hover:border-teal hover:text-navy"
+                  className="inline-flex shrink-0 items-center justify-center border border-navy/10 px-3 py-3 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-navy/75 transition-colors duration-300 hover:border-teal hover:text-navy md:justify-start md:py-2"
                 >
                   Meet Dr. K. Manoj Kumar
                 </TrackedLink>

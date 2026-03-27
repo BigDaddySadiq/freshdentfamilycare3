@@ -182,7 +182,7 @@ export function Footer() {
                     ctaLabel={`Call ${BRANCHES[1]?.name}`}
                     className="font-body text-sm font-light text-white/60"
                   >
-                    {BRANCHES[1]?.phones.join(' Â· ')}
+                    {BRANCHES[1]?.phones.join(' · ')}
                   </TrackedLink>
                 </div>
                 <div className="flex gap-3">

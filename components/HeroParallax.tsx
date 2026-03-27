@@ -130,7 +130,7 @@ export function HeroParallax() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative flex min-h-[92svh] items-center overflow-hidden bg-navy md:min-h-screen"
+      className="relative flex min-h-[88svh] items-start overflow-hidden bg-navy md:min-h-screen md:items-center"
     >
       {HERO_SLIDES.map((slide, index) => (
         <div
@@ -160,7 +160,7 @@ export function HeroParallax() {
       ))}
 
       <div className="container-shell relative z-10 flex w-full items-center">
-        <div className="max-w-3xl py-20 md:py-36 lg:py-40">
+        <div className="max-w-3xl pb-24 pt-24 md:py-36 lg:py-40">
           <p
             ref={overlineRef}
             className="max-w-[18rem] font-body text-[0.62rem] font-medium uppercase tracking-[0.22em] text-gold md:max-w-none md:text-[0.65rem] md:tracking-[0.25em]"
@@ -183,46 +183,40 @@ export function HeroParallax() {
 
           <p
             ref={subtitleRef}
-            className="max-w-xl font-body text-[0.97rem] font-light leading-relaxed text-white/75 md:text-[1.02rem]"
+            className="max-w-[20rem] font-body text-[0.95rem] font-light leading-relaxed text-white/75 md:max-w-xl md:text-[1.02rem]"
           >
             {HERO_COPY.subtitle}
           </p>
 
-          <div ref={bulletsRef} className="mt-5 flex flex-col gap-2 md:mt-6">
-            {HERO_COPY.bullets.slice(0, 2).map((bullet) => (
-              <div key={bullet} className="flex items-start gap-3 md:hidden">
+          <div ref={bulletsRef} className="mt-6 hidden md:flex md:flex-col md:gap-2">
+            {HERO_COPY.bullets.map((bullet) => (
+              <div key={bullet} className="flex items-center gap-3">
                 <CheckCircle2 className="h-4 w-4 text-teal" />
                 <span className="font-body text-sm text-white/80">{bullet}</span>
               </div>
             ))}
-            <div className="hidden md:flex md:flex-col md:gap-2">
-              {HERO_COPY.bullets.map((bullet) => (
-                <div key={bullet} className="flex items-center gap-3">
-                  <CheckCircle2 className="h-4 w-4 text-teal" />
-                  <span className="font-body text-sm text-white/80">{bullet}</span>
-                </div>
-              ))}
-            </div>
           </div>
 
-          <div className="mt-5 grid grid-cols-3 gap-2 border border-white/12 bg-white/6 p-3 backdrop-blur-sm md:hidden">
-            <div className="border border-white/10 bg-white/6 px-3 py-2 text-center">
+          <div className="mt-5 grid grid-cols-2 gap-2 border border-white/12 bg-white/6 p-3 backdrop-blur-sm md:hidden">
+            <div className="col-span-2 border border-white/10 bg-white/6 px-3 py-2 text-center">
               <p className="font-body text-[0.6rem] font-medium uppercase tracking-[0.16em] text-gold">
                 Doctor-led
               </p>
-              <p className="mt-1 font-body text-[0.72rem] text-white/78">Dr. K. Manoj Kumar</p>
+              <p className="mt-1 font-body text-[0.68rem] leading-relaxed text-white/90">
+                Dr. K. Manoj Kumar
+              </p>
             </div>
             <div className="border border-white/10 bg-white/6 px-3 py-2 text-center">
               <p className="font-body text-[0.6rem] font-medium uppercase tracking-[0.16em] text-gold">
                 Branches
               </p>
-              <p className="mt-1 font-body text-[0.72rem] text-white/78">2 in Kakinada</p>
+              <p className="mt-1 font-body text-[0.72rem] text-white/90">2 in Kakinada</p>
             </div>
             <div className="border border-white/10 bg-white/6 px-3 py-2 text-center">
               <p className="font-body text-[0.6rem] font-medium uppercase tracking-[0.16em] text-gold">
                 Hours
               </p>
-              <p className="mt-1 font-body text-[0.72rem] text-white/78">Mon-Sat</p>
+              <p className="mt-1 font-body text-[0.72rem] text-white/90">Mon-Sat</p>
             </div>
           </div>
 
@@ -249,7 +243,7 @@ export function HeroParallax() {
             </TrackedLink>
           </div>
 
-          <div className="mt-6 grid gap-3 md:hidden">
+          <div className="mt-5 grid gap-3 md:hidden">
             <TrackedLink
               href={heroWhatsappHref}
               target="_blank"
@@ -293,18 +287,7 @@ export function HeroParallax() {
             </div>
           </div>
 
-          <div className="mt-4 border border-white/12 bg-navy/35 p-4 md:hidden">
-            <div>
-              <p className="font-body text-[0.62rem] font-medium uppercase tracking-[0.18em] text-gold">
-                Best mobile path
-              </p>
-              <p className="mt-2 font-body text-sm font-light leading-relaxed text-white/78">
-                WhatsApp for fastest response. Callback form if you want the clinic to contact you with branch and treatment context.
-              </p>
-            </div>
-          </div>
-
-          <details className="mt-4 border border-white/12 bg-white/6 p-4 md:hidden">
+          <details className="mt-5 border border-white/12 bg-white/6 p-4 md:hidden">
             <summary className="cursor-pointer list-none font-body text-[0.68rem] font-medium uppercase tracking-[0.16em] text-white/88">
               Explore top treatments
             </summary>

@@ -143,7 +143,7 @@ export function Navbar() {
             animate="visible"
             exit="exit"
             variants={overlayVariants}
-            className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-navy px-6 text-center"
+            className="fixed inset-0 z-[60] overflow-y-auto bg-navy"
           >
             <button
               type="button"
@@ -154,47 +154,48 @@ export function Navbar() {
               <X className="h-6 w-6" />
             </button>
 
-            <div className="flex flex-col items-center gap-5">
-              {NAV_ITEMS.map((item) => (
-                <motion.div key={item.href} variants={linkVariants}>
-                  <TrackedLink
-                    href={item.href}
-                    className="font-heading text-[2rem] font-light text-white sm:text-4xl"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.label}
-                  </TrackedLink>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              variants={linkVariants}
-              className="absolute bottom-10 flex flex-col items-center gap-4 px-6 text-center"
-              style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+            <div
+              className="flex min-h-full flex-col px-6 pb-8 pt-20 text-center"
+              style={{ paddingBottom: 'calc(2rem + env(safe-area-inset-bottom, 0px))' }}
             >
-              <TrackedLink
-                href={mobileWhatsappHref}
-                target="_blank"
-                rel="noreferrer"
-                eventName={TRACKING_EVENTS.whatsappClick}
-                eventData={{ source: 'mobile-menu', treatment_intent: 'general-consultation' }}
-                ctaLabel="Book on WhatsApp"
-                className="bg-teal px-8 py-4 font-body text-[0.72rem] font-medium uppercase tracking-[0.18em] text-white transition-colors duration-300 hover:bg-gold hover:text-navy"
-              >
-                Book on WhatsApp
-              </TrackedLink>
-              <TrackedLink
-                href={buildCallHref('branch-1')}
-                eventName={TRACKING_EVENTS.callClick}
-                eventData={{ source: 'mobile-menu', branch_id: 'branch-1' }}
-                ctaLabel={`Call ${CONTACT_DETAILS.primaryPhone}`}
-                className="flex items-center gap-2 font-body text-sm tracking-[0.1em] text-white/75"
-              >
-                <Phone className="h-4 w-4 text-gold" />
-                <span>{CONTACT_DETAILS.primaryPhone}</span>
-              </TrackedLink>
-            </motion.div>
+              <div className="flex flex-1 flex-col items-center justify-start gap-4 py-2">
+                {NAV_ITEMS.map((item) => (
+                  <motion.div key={item.href} variants={linkVariants}>
+                    <TrackedLink
+                      href={item.href}
+                      className="font-heading text-[1.65rem] font-light text-white sm:text-4xl"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </TrackedLink>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div variants={linkVariants} className="mt-6 flex flex-col items-center gap-4">
+                <TrackedLink
+                  href={mobileWhatsappHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  eventName={TRACKING_EVENTS.whatsappClick}
+                  eventData={{ source: 'mobile-menu', treatment_intent: 'general-consultation' }}
+                  ctaLabel="Book on WhatsApp"
+                  className="bg-teal px-8 py-4 font-body text-[0.72rem] font-medium uppercase tracking-[0.18em] text-white transition-colors duration-300 hover:bg-gold hover:text-navy"
+                >
+                  Book on WhatsApp
+                </TrackedLink>
+                <TrackedLink
+                  href={buildCallHref('branch-1')}
+                  eventName={TRACKING_EVENTS.callClick}
+                  eventData={{ source: 'mobile-menu', branch_id: 'branch-1' }}
+                  ctaLabel={`Call ${CONTACT_DETAILS.primaryPhone}`}
+                  className="flex items-center gap-2 font-body text-sm tracking-[0.1em] text-white/75"
+                >
+                  <Phone className="h-4 w-4 text-gold" />
+                  <span>{CONTACT_DETAILS.primaryPhone}</span>
+                </TrackedLink>
+              </motion.div>
+            </div>
           </motion.div>
         ) : null}
       </AnimatePresence>

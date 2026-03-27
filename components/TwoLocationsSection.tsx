@@ -31,7 +31,7 @@ export function TwoLocationsSection() {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.7, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="flex-1 border-t-2 border-teal bg-white p-8 md:p-10"
+                className="flex-1 border-t-2 border-teal bg-white p-6 md:p-10"
               >
                 {branchNote ? (
                 <div className="mb-6 border border-gold/20 bg-cream/60 p-4">
@@ -78,6 +78,7 @@ export function TwoLocationsSection() {
                     intentKey="general-consultation"
                     source={`locations-${branch.id}`}
                     className="flex flex-wrap gap-3 [&>*:first-child]:w-full [&>*:first-child]:justify-center [&>*:nth-child(2)]:flex-1 [&>*:nth-child(2)]:justify-center [&>*:nth-child(3)]:flex-1 [&>*:nth-child(3)]:justify-center [&>*:nth-child(4)]:hidden md:gap-4 md:[&>*:first-child]:w-auto md:[&>*:nth-child(2)]:flex-none md:[&>*:nth-child(3)]:flex-none md:[&>*:nth-child(4)]:inline-flex"
+                    tertiaryClassName="inline-flex min-h-[48px] items-center justify-center border border-navy/15 px-4 py-3 font-body text-[0.68rem] font-medium uppercase tracking-[0.1em] text-navy transition-colors duration-300 hover:border-teal hover:text-teal md:min-h-0 md:border-0 md:px-0 md:py-0 md:text-sm md:font-medium md:normal-case md:tracking-normal md:text-teal md:underline md:underline-offset-4 md:hover:text-navy"
                     showDirections
                     showFormLink
                     primaryLabel={`WhatsApp ${branch.name}`}

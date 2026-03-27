@@ -158,13 +158,13 @@ export function AppointmentRequestForm() {
               {showAllTreatments ? 'Show fewer' : 'More options'}
             </button>
           </div>
-          <div className="mt-3 flex gap-2 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible md:pb-0">
+          <div className="mt-3 grid grid-cols-2 gap-2 md:flex md:flex-wrap md:overflow-visible md:pb-0">
             {(showAllTreatments ? TREATMENT_INTENTS : FORM_PRIORITY_INTENTS).map((intent) => (
               <button
                 key={intent.key}
                 type="button"
                 onClick={() => updateField('treatmentInterest', intent.key)}
-                className={`shrink-0 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.12em] transition-colors duration-300 ${
+                className={`min-h-[44px] px-3 py-2 text-center font-body text-[0.68rem] font-medium uppercase tracking-[0.12em] transition-colors duration-300 ${
                   formState.treatmentInterest === intent.key
                     ? 'bg-teal text-white'
                     : 'border border-navy/10 bg-white text-navy/75 hover:border-teal hover:text-navy'
@@ -215,7 +215,7 @@ export function AppointmentRequestForm() {
             onChange={(event) => updateField('fullName', event.target.value)}
             className="w-full rounded-none border border-gray-200 bg-white px-4 py-3 font-body text-sm text-charcoal transition-colors duration-300 focus:border-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-teal/30"
             autoComplete="name"
-            placeholder="Your full name…"
+            placeholder="Your full name..."
             required
           />
           {fieldErrors.fullName ? (
@@ -233,7 +233,7 @@ export function AppointmentRequestForm() {
             className="w-full rounded-none border border-gray-200 bg-white px-4 py-3 font-body text-sm text-charcoal transition-colors duration-300 focus:border-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-teal/30"
             autoComplete="tel"
             inputMode="tel"
-            placeholder="Your phone number…"
+            placeholder="Your phone number..."
             required
           />
           {fieldErrors.phoneNumber ? (
@@ -313,7 +313,7 @@ export function AppointmentRequestForm() {
           value={formState.message}
           onChange={(event) => updateField('message', event.target.value)}
           className="w-full rounded-none border border-gray-200 bg-white px-4 py-3 font-body text-sm text-charcoal transition-colors duration-300 focus:border-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-teal/30"
-          placeholder="Tell us your concern if you want the clinic to call back with more context…"
+          placeholder="Tell us your concern if you want the clinic to call back with more context..."
         />
         {fieldErrors.message ? (
           <span className="font-body text-xs text-red-600">{fieldErrors.message}</span>
@@ -346,7 +346,7 @@ export function AppointmentRequestForm() {
         disabled={isSubmitting}
         className="w-full bg-navy py-4 font-body text-[0.7rem] font-medium uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-teal disabled:cursor-not-allowed disabled:bg-navy/70"
       >
-        {isSubmitting ? 'Submitting Request…' : CONTACT_COPY.form.fields.submitLabel}
+        {isSubmitting ? 'Submitting Request...' : CONTACT_COPY.form.fields.submitLabel}
       </button>
 
       <p className="font-body text-xs font-light leading-relaxed text-muted">
