@@ -30,7 +30,7 @@ export function FaqSection({ id, label, heading, description, faqs }: FaqSection
         <div className="mx-auto mt-14 max-w-4xl divide-y divide-navy/10 border-y border-navy/10">
           {faqs.map((faq) => (
             <details key={faq.question} className="group py-6">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-body text-left text-lg font-medium text-navy marker:hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-body text-left text-base font-medium text-navy marker:hidden md:text-lg">
                 <span>{faq.question}</span>
                 <ChevronDown className="h-5 w-5 shrink-0 text-teal transition-transform duration-300 group-open:rotate-180" />
               </summary>
@@ -53,7 +53,7 @@ export function FaqSection({ id, label, heading, description, faqs }: FaqSection
               source="faq-section"
               branchId="branch-1"
               intentKey="general-consultation"
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap gap-3 [&>*:first-child]:w-full [&>*:first-child]:justify-center [&>*:nth-child(2)]:hidden [&>*:nth-child(3)]:w-full [&>*:nth-child(3)]:justify-center md:gap-4 md:[&>*:first-child]:w-auto md:[&>*:nth-child(2)]:inline-flex md:[&>*:nth-child(3)]:w-auto"
               showFormLink
             />
           </div>

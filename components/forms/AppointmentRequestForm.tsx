@@ -129,13 +129,16 @@ export function AppointmentRequestForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+    <form onSubmit={handleSubmit} className="space-y-6" noValidate>
       <div className="space-y-4 border border-gold/20 bg-cream/60 p-4">
         <div className="grid gap-3 border-b border-gold/15 pb-4">
           <p className="font-body text-[0.68rem] font-medium uppercase tracking-[0.18em] text-gold">
             Mobile-friendly booking
           </p>
-          <div className="grid gap-2 text-sm font-light leading-relaxed text-muted md:grid-cols-3">
+          <p className="font-body text-sm font-light leading-relaxed text-muted md:hidden">
+            Choose treatment, choose branch, and submit in under a minute.
+          </p>
+          <div className="hidden gap-2 text-sm font-light leading-relaxed text-muted md:grid md:grid-cols-3">
             <p>1. Pick a treatment</p>
             <p>2. Choose a branch</p>
             <p>3. Submit in under a minute</p>
@@ -155,13 +158,13 @@ export function AppointmentRequestForm() {
               {showAllTreatments ? 'Show fewer' : 'More options'}
             </button>
           </div>
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-3 flex gap-2 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible md:pb-0">
             {(showAllTreatments ? TREATMENT_INTENTS : FORM_PRIORITY_INTENTS).map((intent) => (
               <button
                 key={intent.key}
                 type="button"
                 onClick={() => updateField('treatmentInterest', intent.key)}
-                className={`px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.12em] transition-colors duration-300 ${
+                className={`shrink-0 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.12em] transition-colors duration-300 ${
                   formState.treatmentInterest === intent.key
                     ? 'bg-teal text-white'
                     : 'border border-navy/10 bg-white text-navy/75 hover:border-teal hover:text-navy'
@@ -202,7 +205,7 @@ export function AppointmentRequestForm() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-5 md:grid-cols-2">
         <label className="flex flex-col gap-2 font-body text-sm text-charcoal">
           <span>{CONTACT_COPY.form.fields.nameLabel}</span>
           <input
@@ -239,7 +242,7 @@ export function AppointmentRequestForm() {
         </label>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-5 md:grid-cols-2">
         <label className="hidden flex-col gap-2 font-body text-sm text-charcoal md:flex">
           <span>{CONTACT_COPY.form.fields.branchLabel}</span>
           <select

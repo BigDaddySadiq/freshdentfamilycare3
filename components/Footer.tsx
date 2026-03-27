@@ -35,9 +35,175 @@ export function Footer() {
   const activeSocialLinks = SOCIAL_LINKS.filter((link) => link.href && link.href !== '#');
 
   return (
-    <footer className="bg-footer py-20 pb-28 text-white md:pb-20">
+    <footer className="bg-footer py-16 pb-32 text-white md:py-20 md:pb-20">
       <div className="container-shell">
-        <div className="grid gap-12 md:grid-cols-2 xl:grid-cols-4">
+        <div className="md:hidden">
+          <div>
+            <Image
+              src={IMAGE_ASSETS.logo.src}
+              alt={IMAGE_ASSETS.logo.alt}
+              width={99}
+              height={56}
+              className="mb-4 h-14 w-auto object-contain"
+            />
+            <p className="font-heading text-base italic text-white/60">{TAGLINE}</p>
+            <p className="mt-4 font-body text-sm font-light leading-relaxed text-white/60">
+              Premium family dental care in Kakinada with easy next steps for WhatsApp, callback requests, branch directions, and treatment enquiries.
+            </p>
+
+            <div className="mt-6 grid gap-3">
+              <TrackedLink
+                href={footerWhatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                eventName={TRACKING_EVENTS.whatsappClick}
+                eventData={{ source: 'footer', treatment_intent: 'general-consultation' }}
+                ctaLabel="Book on WhatsApp"
+                className="button-primary w-full"
+              >
+                Book on WhatsApp
+              </TrackedLink>
+              <TrackedLink
+                href="/#contact"
+                eventName={TRACKING_EVENTS.appointmentCtaClick}
+                eventData={{ source: 'footer' }}
+                ctaLabel="Callback Form"
+                className="button-secondary w-full border-white/15 text-white/80"
+              >
+                Callback Form
+              </TrackedLink>
+              <TrackedLink
+                href="/#locations"
+                eventName={TRACKING_EVENTS.appointmentCtaClick}
+                eventData={{ source: 'footer' }}
+                ctaLabel="Compare Branches"
+                className="inline-flex justify-center font-body text-sm text-white/65 underline underline-offset-4"
+              >
+                Compare Branches
+              </TrackedLink>
+            </div>
+          </div>
+
+          <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
+            <details className="group py-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-body text-sm font-medium uppercase tracking-[0.16em] text-white/82">
+                <span>{FOOTER_COPY.quickLinksHeading}</span>
+                <span className="text-gold transition-transform duration-300 group-open:rotate-45">+</span>
+              </summary>
+              <div className="mt-4 space-y-2">
+                {FOOTER_QUICK_LINKS.map((link) => (
+                  <TrackedLink
+                    key={`mobile-${link.href}`}
+                    href={link.href}
+                    className="block py-1 font-body text-sm font-light text-white/60"
+                  >
+                    {link.label}
+                  </TrackedLink>
+                ))}
+              </div>
+            </details>
+
+            <details className="group py-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-body text-sm font-medium uppercase tracking-[0.16em] text-white/82">
+                <span>{FOOTER_COPY.treatmentsHeading}</span>
+                <span className="text-gold transition-transform duration-300 group-open:rotate-45">+</span>
+              </summary>
+              <div className="mt-4 space-y-2">
+                {SERVICE_PAGE_LINKS.map((treatment) => (
+                  <TrackedLink
+                    key={`mobile-${treatment.href}`}
+                    href={treatment.href}
+                    className="block py-1 font-body text-sm font-light text-white/60"
+                  >
+                    {treatment.label}
+                  </TrackedLink>
+                ))}
+              </div>
+            </details>
+
+            <details className="group py-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-body text-sm font-medium uppercase tracking-[0.16em] text-white/82">
+                <span>{FOOTER_COPY.contactHeading}</span>
+                <span className="text-gold transition-transform duration-300 group-open:rotate-45">+</span>
+              </summary>
+              <div className="mt-4 space-y-4">
+                <div className="flex gap-3">
+                  <MapPin className="mt-1 h-4 w-4 shrink-0 text-teal" />
+                  <div className="font-body text-sm font-light text-white/60">
+                    <p>{BRANCHES[0]?.name}, Kakinada 533005</p>
+                    <TrackedLink
+                      href={buildDirectionsHref('branch-1')}
+                      target="_blank"
+                      rel="noreferrer"
+                      eventName={TRACKING_EVENTS.directionsClick}
+                      eventData={{ source: 'footer', branch_id: 'branch-1' }}
+                      ctaLabel={`Get directions to ${BRANCHES[0]?.name}`}
+                      className="mt-1 inline-flex text-xs uppercase tracking-[0.16em] text-teal"
+                    >
+                      Get directions
+                    </TrackedLink>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <MapPin className="mt-1 h-4 w-4 shrink-0 text-teal" />
+                  <div className="font-body text-sm font-light text-white/60">
+                    <p>{BRANCHES[1]?.name}, Kakinada 533003</p>
+                    <TrackedLink
+                      href={buildDirectionsHref('branch-2')}
+                      target="_blank"
+                      rel="noreferrer"
+                      eventName={TRACKING_EVENTS.directionsClick}
+                      eventData={{ source: 'footer', branch_id: 'branch-2' }}
+                      ctaLabel={`Get directions to ${BRANCHES[1]?.name}`}
+                      className="mt-1 inline-flex text-xs uppercase tracking-[0.16em] text-teal"
+                    >
+                      Get directions
+                    </TrackedLink>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <Phone className="mt-1 h-4 w-4 shrink-0 text-teal" />
+                  <TrackedLink
+                    href={buildCallHref('branch-1')}
+                    eventName={TRACKING_EVENTS.callClick}
+                    eventData={{ source: 'footer', branch_id: 'branch-1' }}
+                    ctaLabel={`Call ${CONTACT_DETAILS.primaryPhone}`}
+                    className="font-body text-sm font-light text-white/60"
+                  >
+                    {CONTACT_DETAILS.primaryPhone}
+                  </TrackedLink>
+                </div>
+                <div className="flex gap-3">
+                  <Phone className="mt-1 h-4 w-4 shrink-0 text-teal" />
+                  <TrackedLink
+                    href={buildCallHref('branch-2')}
+                    eventName={TRACKING_EVENTS.callClick}
+                    eventData={{ source: 'footer', branch_id: 'branch-2' }}
+                    ctaLabel={`Call ${BRANCHES[1]?.name}`}
+                    className="font-body text-sm font-light text-white/60"
+                  >
+                    {BRANCHES[1]?.phones.join(' Â· ')}
+                  </TrackedLink>
+                </div>
+                <div className="flex gap-3">
+                  <Mail className="mt-1 h-4 w-4 shrink-0 text-teal" />
+                  <TrackedLink
+                    href={`mailto:${CONTACT_DETAILS.email}`}
+                    className="font-body text-sm font-light text-white/60"
+                  >
+                    {CONTACT_DETAILS.email}
+                  </TrackedLink>
+                </div>
+                <div className="flex gap-3">
+                  <span className="w-4 shrink-0" />
+                  <p className="font-body text-sm font-light text-white/60">{FOOTER_COPY.hours}</p>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div className="hidden gap-12 md:grid md:grid-cols-2 xl:grid-cols-4">
           <div>
             <Image
               src={IMAGE_ASSETS.logo.src}

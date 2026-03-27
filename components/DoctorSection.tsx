@@ -21,12 +21,11 @@ export function DoctorSection() {
             alt={IMAGE_ASSETS.doctorPortrait.alt}
             width={IMAGE_ASSETS.doctorPortrait.width}
             height={IMAGE_ASSETS.doctorPortrait.height}
-            className="h-full min-h-[600px] w-full object-cover"
-            style={{ minHeight: '600px' }}
+            className="h-full min-h-[440px] w-full object-cover md:min-h-[600px]"
           />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy to-transparent" />
 
-          <div className="absolute bottom-8 left-8 z-10 h-36 w-36 overflow-hidden shadow-xl">
+          <div className="absolute bottom-4 left-4 z-10 h-28 w-28 overflow-hidden shadow-xl md:bottom-8 md:left-8 md:h-36 md:w-36">
             <Image
               src={IMAGE_ASSETS.doctorDesk.src}
               alt={IMAGE_ASSETS.doctorDesk.alt}
@@ -42,7 +41,7 @@ export function DoctorSection() {
           initial={{ x: 40, opacity: 0 }}
           animate={inView ? { x: 0, opacity: 1 } : {}}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center px-6 py-24 md:px-12 lg:col-span-7 lg:px-16"
+          className="flex items-center px-6 py-16 md:px-12 md:py-24 lg:col-span-7 lg:px-16"
         >
           <div className="max-w-2xl">
             <p className="section-label">{DOCTOR_SECTION_COPY.label}</p>
@@ -50,11 +49,11 @@ export function DoctorSection() {
               {DOCTOR.fullName}
             </h2>
 
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="mt-4 flex gap-2 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible md:pb-0">
               {DOCTOR.pills.map((pill) => (
                 <span
                   key={pill}
-                  className="rounded-full border border-gold/60 px-3 py-1 font-body text-[0.65rem] uppercase tracking-[0.18em] text-gold"
+                  className="shrink-0 rounded-full border border-gold/60 px-3 py-1 font-body text-[0.65rem] uppercase tracking-[0.18em] text-gold"
                 >
                   {pill}
                 </span>
@@ -92,7 +91,18 @@ export function DoctorSection() {
               ))}
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-2">
+            <div className="mt-8 flex flex-wrap gap-2 md:hidden">
+              {DOCTOR.expertiseTags.slice(0, 4).map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-sm border border-white/10 bg-white/8 px-3 py-1.5 font-body text-[0.65rem] uppercase tracking-[0.18em] text-white/65"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-8 hidden flex-wrap gap-2 md:flex">
               {DOCTOR.expertiseTags.map((tag) => (
                 <span
                   key={tag}
@@ -108,7 +118,7 @@ export function DoctorSection() {
                 source="doctor-section"
                 branchId="branch-1"
                 intentKey="general-consultation"
-                className="flex flex-wrap gap-4"
+                className="flex flex-wrap gap-3 [&>*:first-child]:w-full [&>*:first-child]:justify-center [&>*:nth-child(2)]:hidden [&>*:nth-child(3)]:w-full [&>*:nth-child(3)]:justify-center md:gap-4 md:[&>*:first-child]:w-auto md:[&>*:nth-child(2)]:inline-flex md:[&>*:nth-child(3)]:w-auto"
                 secondaryClassName="button-secondary border-white text-white hover:bg-white hover:text-navy"
                 tertiaryClassName="font-body text-sm text-white/70 underline underline-offset-4 transition-colors duration-300 hover:text-white"
                 showDirections={false}
@@ -120,13 +130,13 @@ export function DoctorSection() {
               <p className="font-body text-[0.68rem] font-medium uppercase tracking-[0.18em] text-gold">
                 Specialist-led treatment pages
               </p>
-              <div className="mt-4 flex flex-wrap gap-3">
+              <div className="mt-4 flex gap-3 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible md:pb-0">
                 <TrackedLink
                   href="/services/oral-maxillofacial-surgery"
                   eventName={TRACKING_EVENTS.appointmentCtaClick}
                   eventData={{ source: 'doctor-section', treatment_page: 'oral-maxillofacial-surgery' }}
                   ctaLabel="Oral and Maxillofacial Surgery"
-                  className="inline-flex border border-white/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/80 transition-colors duration-300 hover:border-gold hover:text-white"
+                  className="inline-flex shrink-0 border border-white/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/80 transition-colors duration-300 hover:border-gold hover:text-white"
                 >
                   Oral and Maxillofacial Surgery
                 </TrackedLink>
@@ -135,7 +145,7 @@ export function DoctorSection() {
                   eventName={TRACKING_EVENTS.appointmentCtaClick}
                   eventData={{ source: 'doctor-section', treatment_page: 'dental-implants' }}
                   ctaLabel="Dental Implants"
-                  className="inline-flex border border-white/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/80 transition-colors duration-300 hover:border-gold hover:text-white"
+                  className="inline-flex shrink-0 border border-white/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/80 transition-colors duration-300 hover:border-gold hover:text-white"
                 >
                   Dental Implants
                 </TrackedLink>
@@ -144,7 +154,7 @@ export function DoctorSection() {
                   eventName={TRACKING_EVENTS.appointmentCtaClick}
                   eventData={{ source: 'doctor-section', treatment_page: 'wisdom-tooth-removal' }}
                   ctaLabel="Wisdom Tooth Removal"
-                  className="inline-flex border border-white/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/80 transition-colors duration-300 hover:border-gold hover:text-white"
+                  className="inline-flex shrink-0 border border-white/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/80 transition-colors duration-300 hover:border-gold hover:text-white"
                 >
                   Wisdom Tooth Removal
                 </TrackedLink>

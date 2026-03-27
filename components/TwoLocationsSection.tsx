@@ -77,7 +77,7 @@ export function TwoLocationsSection() {
                     branchId={branch.id}
                     intentKey="general-consultation"
                     source={`locations-${branch.id}`}
-                    className="flex flex-wrap gap-4"
+                    className="flex flex-wrap gap-3 [&>*:first-child]:w-full [&>*:first-child]:justify-center [&>*:nth-child(2)]:flex-1 [&>*:nth-child(2)]:justify-center [&>*:nth-child(3)]:flex-1 [&>*:nth-child(3)]:justify-center [&>*:nth-child(4)]:hidden md:gap-4 md:[&>*:first-child]:w-auto md:[&>*:nth-child(2)]:flex-none md:[&>*:nth-child(3)]:flex-none md:[&>*:nth-child(4)]:inline-flex"
                     showDirections
                     showFormLink
                     primaryLabel={`WhatsApp ${branch.name}`}

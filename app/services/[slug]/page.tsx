@@ -144,7 +144,7 @@ export default async function TreatmentPage({ params }: { params: TreatmentPageP
                   source={`treatment-page-${treatment.slug}`}
                   branchId="branch-1"
                   intentKey={treatment.intentKey}
-                  className="flex flex-wrap gap-4"
+                  className="flex flex-wrap gap-3 [&>*:first-child]:w-full [&>*:first-child]:justify-center [&>*:nth-child(2)]:flex-1 [&>*:nth-child(2)]:justify-center [&>*:nth-child(3)]:hidden [&>*:nth-child(4)]:flex-1 [&>*:nth-child(4)]:justify-center md:gap-4 md:[&>*:first-child]:w-auto md:[&>*:nth-child(2)]:flex-none md:[&>*:nth-child(3)]:inline-flex md:[&>*:nth-child(4)]:flex-none"
                   showDirections
                   showFormLink
                 />
@@ -209,13 +209,13 @@ export default async function TreatmentPage({ params }: { params: TreatmentPageP
                   </div>
                 ))}
               </div>
-              <div className="mt-6 flex flex-wrap gap-3 border-t border-navy/10 pt-6">
+              <div className="mt-6 flex gap-3 overflow-x-auto border-t border-navy/10 pt-6 pb-1 md:flex-wrap md:overflow-visible md:pb-0">
                 <TrackedLink
                   href="/#locations"
                   eventName={TRACKING_EVENTS.appointmentCtaClick}
                   eventData={{ source: `treatment-local-access-${treatment.slug}` }}
                   ctaLabel="Compare Kakinada branches"
-                  className="inline-flex border border-navy/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-navy/75 transition-colors duration-300 hover:border-teal hover:text-navy"
+                  className="inline-flex shrink-0 border border-navy/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-navy/75 transition-colors duration-300 hover:border-teal hover:text-navy"
                 >
                   Compare Kakinada branches
                 </TrackedLink>
@@ -224,7 +224,7 @@ export default async function TreatmentPage({ params }: { params: TreatmentPageP
                   eventName={TRACKING_EVENTS.appointmentCtaClick}
                   eventData={{ source: `treatment-local-access-${treatment.slug}` }}
                   ctaLabel="Request callback"
-                  className="inline-flex border border-navy/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-navy/75 transition-colors duration-300 hover:border-teal hover:text-navy"
+                  className="inline-flex shrink-0 border border-navy/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-navy/75 transition-colors duration-300 hover:border-teal hover:text-navy"
                 >
                   Request callback
                 </TrackedLink>
@@ -233,7 +233,7 @@ export default async function TreatmentPage({ params }: { params: TreatmentPageP
                   eventName={TRACKING_EVENTS.appointmentCtaClick}
                   eventData={{ source: `treatment-local-access-${treatment.slug}` }}
                   ctaLabel="Meet Dr. K. Manoj Kumar"
-                  className="inline-flex border border-navy/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-navy/75 transition-colors duration-300 hover:border-teal hover:text-navy"
+                  className="inline-flex shrink-0 border border-navy/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-navy/75 transition-colors duration-300 hover:border-teal hover:text-navy"
                 >
                   Meet Dr. K. Manoj Kumar
                 </TrackedLink>
@@ -301,7 +301,7 @@ export default async function TreatmentPage({ params }: { params: TreatmentPageP
                       source={`treatment-branch-${treatment.slug}-${branch.id}`}
                       branchId={branch.id}
                       intentKey={treatment.intentKey}
-                      className="flex flex-wrap gap-4"
+                      className="flex flex-wrap gap-3 [&>*:first-child]:w-full [&>*:first-child]:justify-center [&>*:nth-child(2)]:flex-1 [&>*:nth-child(2)]:justify-center [&>*:nth-child(3)]:flex-1 [&>*:nth-child(3)]:justify-center [&>*:nth-child(4)]:hidden md:gap-4 md:[&>*:first-child]:w-auto md:[&>*:nth-child(2)]:flex-none md:[&>*:nth-child(3)]:flex-none md:[&>*:nth-child(4)]:inline-flex"
                       showDirections
                       showFormLink
                       primaryLabel={`WhatsApp ${branch.name}`}

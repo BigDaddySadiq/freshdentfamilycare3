@@ -92,7 +92,7 @@ export function CtaBanner() {
               source="cta-banner"
               branchId="branch-1"
               intentKey="general-consultation"
-              className="flex flex-wrap justify-center gap-4"
+              className="flex flex-wrap justify-center gap-3 [&>*:first-child]:w-full [&>*:first-child]:justify-center [&>*:nth-child(2)]:hidden [&>*:nth-child(3)]:w-full [&>*:nth-child(3)]:justify-center md:gap-4 md:[&>*:first-child]:w-auto md:[&>*:nth-child(2)]:inline-flex md:[&>*:nth-child(3)]:w-auto"
               secondaryClassName="button-secondary border-white text-white hover:bg-white hover:text-navy"
               tertiaryClassName="font-body text-sm text-white/70 underline underline-offset-4 transition-colors duration-300 hover:text-white"
               showDirections={false}

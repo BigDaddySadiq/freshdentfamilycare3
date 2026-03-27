@@ -43,7 +43,16 @@ export function WelcomeSection() {
             ))}
           </div>
 
-          <div className="mt-8 flex flex-col gap-3">
+          <div className="mt-8 flex flex-col gap-3 md:hidden">
+            {ABOUT_COPY.features.slice(0, 2).map((feature) => (
+              <div key={feature} className="flex items-start gap-3">
+                <CheckCircle2 className="mt-1 h-[18px] w-[18px] shrink-0 text-teal" />
+                <span className="font-body text-base text-charcoal">{feature}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 hidden flex-col gap-3 md:flex">
             {ABOUT_COPY.features.map((feature) => (
               <div key={feature} className="flex items-start gap-3">
                 <CheckCircle2 className="mt-1 h-[18px] w-[18px] shrink-0 text-teal" />
@@ -81,7 +90,7 @@ export function WelcomeSection() {
               className="aspect-[4/5] h-auto w-full object-cover"
             />
 
-            <div className="absolute bottom-6 left-6 max-w-[220px] border-l-[3px] border-teal bg-white p-5 shadow-xl">
+            <div className="absolute bottom-4 left-4 max-w-[190px] border-l-[3px] border-teal bg-white p-4 shadow-xl md:bottom-6 md:left-6 md:max-w-[220px] md:p-5">
               <p className="font-body text-[0.85rem] font-semibold text-navy">
                 {ABOUT_COPY.badge.name}
               </p>

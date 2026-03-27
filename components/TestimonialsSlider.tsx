@@ -125,7 +125,7 @@ export function TestimonialsSlider() {
                   <p className="mb-5 text-base tracking-[0.2em] text-gold">
                     {'★'.repeat(testimonial.stars)}
                   </p>
-                  <p className="font-heading text-[1.2rem] italic leading-relaxed text-charcoal">
+                  <p className="font-heading text-[1.08rem] italic leading-relaxed text-charcoal md:text-[1.2rem]">
                     {testimonial.quote}
                   </p>
                   <p className="mt-6 flex items-center gap-2 font-body text-sm font-medium text-navy">
@@ -143,7 +143,7 @@ export function TestimonialsSlider() {
             source="testimonials-section"
             branchId="branch-1"
             intentKey="general-consultation"
-            className="flex flex-wrap gap-4"
+            className="flex flex-wrap gap-3 [&>*:first-child]:w-full [&>*:first-child]:justify-center [&>*:nth-child(2)]:hidden [&>*:nth-child(3)]:w-full [&>*:nth-child(3)]:justify-center md:gap-4 md:[&>*:first-child]:w-auto md:[&>*:nth-child(2)]:inline-flex md:[&>*:nth-child(3)]:w-auto"
             showFormLink
           />
         </div>

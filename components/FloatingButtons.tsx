@@ -31,7 +31,10 @@ export function FloatingButtons() {
 
   return (
     <>
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-navy/10 bg-white/95 px-4 py-3 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] backdrop-blur md:hidden">
+      <div
+        className="fixed inset-x-0 bottom-0 z-50 border-t border-navy/10 bg-white/95 px-4 py-3 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] backdrop-blur md:hidden"
+        style={{ paddingBottom: 'calc(0.75rem + env(safe-area-inset-bottom, 0px))' }}
+      >
         <div className="grid grid-cols-3 gap-3">
           <TrackedLink
             href={whatsappHref}
@@ -41,7 +44,7 @@ export function FloatingButtons() {
             eventData={{ source: 'mobile-floating-bar', treatment_intent: 'general-consultation' }}
             ariaLabel={FLOATING_BUTTONS_COPY.whatsappLabel}
             ctaLabel="WhatsApp"
-            className="flex items-center justify-center gap-2 bg-whatsapp px-3 py-3 font-body text-[0.72rem] font-medium uppercase tracking-[0.12em] text-white"
+            className="flex min-h-[52px] items-center justify-center gap-2 bg-whatsapp px-2 py-3 text-center font-body text-[0.68rem] font-medium uppercase tracking-[0.1em] text-white"
           >
             <MessageCircle className="h-4 w-4" />
             <span>WhatsApp</span>
@@ -52,7 +55,7 @@ export function FloatingButtons() {
             eventData={{ source: 'mobile-floating-bar', branch_id: 'branch-1' }}
             ariaLabel={FLOATING_BUTTONS_COPY.callLabel}
             ctaLabel="Call"
-            className="flex items-center justify-center gap-2 border border-navy/15 px-3 py-3 font-body text-[0.72rem] font-medium uppercase tracking-[0.12em] text-navy"
+            className="flex min-h-[52px] items-center justify-center gap-2 border border-navy/15 px-2 py-3 text-center font-body text-[0.68rem] font-medium uppercase tracking-[0.1em] text-navy"
           >
             <Phone className="h-4 w-4" />
             <span>Call</span>
@@ -65,7 +68,7 @@ export function FloatingButtons() {
             eventData={{ source: 'mobile-floating-bar', branch_id: 'branch-1' }}
             ariaLabel={FLOATING_BUTTONS_COPY.directionsLabel}
             ctaLabel="Directions"
-            className="flex items-center justify-center gap-2 border border-navy/15 px-3 py-3 font-body text-[0.72rem] font-medium uppercase tracking-[0.12em] text-navy"
+            className="flex min-h-[52px] items-center justify-center gap-2 border border-navy/15 px-2 py-3 text-center font-body text-[0.68rem] font-medium uppercase tracking-[0.1em] text-navy"
           >
             <MapPinned className="h-4 w-4" />
             <span>Directions</span>

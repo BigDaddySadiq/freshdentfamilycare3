@@ -27,8 +27,8 @@ export function ContactSection() {
         </div>
 
         <div className="mt-16 grid gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
-            <div className="mb-8 grid gap-4 md:grid-cols-3">
+          <div className="flex flex-col">
+            <div className="order-2 mb-8 flex gap-4 overflow-x-auto pb-2 md:order-none md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
               {CONTACT_DECISION_CARDS.map((card) => {
                 const href = card.kind === 'whatsapp' ? quickWhatsappHref : card.href;
                 const isExternal = card.kind === 'whatsapp';
@@ -52,7 +52,7 @@ export function ContactSection() {
                     }
                     eventData={{ source: 'contact-decision-cards' }}
                     ctaLabel={card.title}
-                    className="border border-navy/10 bg-white p-5 transition-colors duration-300 hover:border-teal hover:bg-white"
+                    className="min-w-[82%] border border-navy/10 bg-white p-5 transition-colors duration-300 hover:border-teal hover:bg-white md:min-w-0"
                   >
                     <div className="flex items-center justify-between gap-4">
                       <p className="font-body text-[0.7rem] font-medium uppercase tracking-[0.18em] text-gold">
@@ -71,8 +71,8 @@ export function ContactSection() {
               })}
             </div>
 
-            <div className="mb-10 grid gap-4 md:grid-cols-2">
-              <article className="border border-navy/10 bg-white p-6">
+            <div className="order-3 mb-10 flex gap-4 overflow-x-auto pb-2 md:order-none md:grid md:grid-cols-2 md:overflow-visible md:pb-0">
+              <article className="min-w-[84%] border border-navy/10 bg-white p-6 md:min-w-0">
                 <div className="flex items-start gap-3">
                   <MapPin className="mt-1 h-[18px] w-[18px] shrink-0 text-teal" />
                   <div>
@@ -86,7 +86,7 @@ export function ContactSection() {
                   </div>
                 </div>
               </article>
-              <article className="border border-navy/10 bg-white p-6">
+              <article className="min-w-[84%] border border-navy/10 bg-white p-6 md:min-w-0">
                 <div className="flex items-start gap-3">
                   <MapPin className="mt-1 h-[18px] w-[18px] shrink-0 text-teal" />
                   <div>
@@ -102,7 +102,7 @@ export function ContactSection() {
               </article>
             </div>
 
-            <div className="grid gap-4 border border-navy/10 bg-white p-6 md:grid-cols-2">
+            <div className="order-4 grid gap-4 border border-navy/10 bg-white p-6 md:order-none md:grid-cols-2">
               <div className="flex items-start gap-3">
                 <Phone className="mt-1 h-[18px] w-[18px] shrink-0 text-teal" />
                 <div>
@@ -138,7 +138,7 @@ export function ContactSection() {
               </div>
             </div>
 
-            <div className="mt-8 border border-navy/10 bg-white p-6 md:p-8">
+            <div className="order-1 mt-8 border border-navy/10 bg-white p-6 md:order-none md:p-8">
               <div className="mb-6 border-b border-navy/10 pb-6">
                 <p className="font-body text-[0.7rem] font-medium uppercase tracking-[0.18em] text-gold">
                   Callback Form
@@ -150,7 +150,7 @@ export function ContactSection() {
               <AppointmentRequestForm />
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-4">
+            <div className="mt-6 hidden flex-wrap gap-4 md:flex">
               <LeadActionGroup
                 source="contact-section"
                 branchId="branch-1"
@@ -162,12 +162,12 @@ export function ContactSection() {
             </div>
           </div>
 
-          <div className="overflow-hidden border-2 border-gold/40 bg-white">
+          <div className="min-h-[320px] overflow-hidden border-2 border-gold/40 bg-white md:min-h-[640px]">
             <iframe
               src={CONTACT_COPY.mapEmbed}
               width="100%"
               height="100%"
-              style={{ border: 0, minHeight: '640px' }}
+              style={{ border: 0, minHeight: '100%' }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

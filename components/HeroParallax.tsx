@@ -15,7 +15,6 @@ const heroWhatsappHref = buildWhatsAppUrl({
   source: 'hero-primary-cta',
   intentKey: 'general-consultation'
 });
-
 export function HeroParallax() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -131,7 +130,7 @@ export function HeroParallax() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative flex min-h-screen items-center overflow-hidden bg-navy"
+      className="relative flex min-h-[92svh] items-center overflow-hidden bg-navy md:min-h-screen"
     >
       {HERO_SLIDES.map((slide, index) => (
         <div
@@ -161,7 +160,7 @@ export function HeroParallax() {
       ))}
 
       <div className="container-shell relative z-10 flex w-full items-center">
-        <div className="max-w-3xl py-24 md:py-36 lg:py-40">
+        <div className="max-w-3xl py-20 md:py-36 lg:py-40">
           <p
             ref={overlineRef}
             className="max-w-[18rem] font-body text-[0.62rem] font-medium uppercase tracking-[0.22em] text-gold md:max-w-none md:text-[0.65rem] md:tracking-[0.25em]"
@@ -191,22 +190,43 @@ export function HeroParallax() {
 
           <div ref={bulletsRef} className="mt-5 flex flex-col gap-2 md:mt-6">
             {HERO_COPY.bullets.slice(0, 2).map((bullet) => (
-              <div key={bullet} className="flex items-center gap-3 md:hidden">
+              <div key={bullet} className="flex items-start gap-3 md:hidden">
                 <CheckCircle2 className="h-4 w-4 text-teal" />
                 <span className="font-body text-sm text-white/80">{bullet}</span>
               </div>
             ))}
-            {HERO_COPY.bullets.map((bullet) => (
-              <div key={bullet} className="flex items-center gap-3">
-                <CheckCircle2 className="h-4 w-4 text-teal" />
-                <span className="hidden font-body text-sm text-white/80 md:inline">
-                  {bullet}
-                </span>
-              </div>
-            ))}
+            <div className="hidden md:flex md:flex-col md:gap-2">
+              {HERO_COPY.bullets.map((bullet) => (
+                <div key={bullet} className="flex items-center gap-3">
+                  <CheckCircle2 className="h-4 w-4 text-teal" />
+                  <span className="font-body text-sm text-white/80">{bullet}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div ref={ctasRef} className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap md:mt-8">
+          <div className="mt-5 grid grid-cols-3 gap-2 border border-white/12 bg-white/6 p-3 backdrop-blur-sm md:hidden">
+            <div className="border border-white/10 bg-white/6 px-3 py-2 text-center">
+              <p className="font-body text-[0.6rem] font-medium uppercase tracking-[0.16em] text-gold">
+                Doctor-led
+              </p>
+              <p className="mt-1 font-body text-[0.72rem] text-white/78">Dr. K. Manoj Kumar</p>
+            </div>
+            <div className="border border-white/10 bg-white/6 px-3 py-2 text-center">
+              <p className="font-body text-[0.6rem] font-medium uppercase tracking-[0.16em] text-gold">
+                Branches
+              </p>
+              <p className="mt-1 font-body text-[0.72rem] text-white/78">2 in Kakinada</p>
+            </div>
+            <div className="border border-white/10 bg-white/6 px-3 py-2 text-center">
+              <p className="font-body text-[0.6rem] font-medium uppercase tracking-[0.16em] text-gold">
+                Hours
+              </p>
+              <p className="mt-1 font-body text-[0.72rem] text-white/78">Mon-Sat</p>
+            </div>
+          </div>
+
+          <div ref={ctasRef} className="mt-6 hidden flex-col gap-3 sm:flex-row sm:flex-wrap md:mt-8 md:flex">
             <TrackedLink
               href={heroWhatsappHref}
               target="_blank"
@@ -229,7 +249,31 @@ export function HeroParallax() {
             </TrackedLink>
           </div>
 
-          <div className="mt-6 max-w-2xl border border-white/12 bg-white/6 p-4 backdrop-blur-sm md:mt-8 md:p-5">
+          <div className="mt-6 grid gap-3 md:hidden">
+            <TrackedLink
+              href={heroWhatsappHref}
+              target="_blank"
+              rel="noreferrer"
+              eventName={TRACKING_EVENTS.whatsappClick}
+              eventData={{ source: 'hero-primary-cta', treatment_intent: 'general-consultation' }}
+              ctaLabel={HERO_COPY.primaryCta.label}
+              className="button-primary w-full"
+            >
+              {HERO_COPY.primaryCta.label}
+            </TrackedLink>
+
+            <TrackedLink
+              href={HERO_COPY.secondaryCta.href}
+              eventName={TRACKING_EVENTS.appointmentCtaClick}
+              eventData={{ source: 'hero-mobile-callback' }}
+              ctaLabel={HERO_COPY.secondaryCta.label}
+              className="button-secondary w-full border-white text-white hover:bg-white hover:text-navy"
+            >
+              {HERO_COPY.secondaryCta.label}
+            </TrackedLink>
+          </div>
+
+          <div className="mt-6 hidden max-w-2xl border border-white/12 bg-white/6 p-4 backdrop-blur-sm md:mt-8 md:block md:p-5">
             <p className="font-body text-[0.68rem] font-medium uppercase tracking-[0.18em] text-gold">
               High-intent shortcuts
             </p>
@@ -249,7 +293,7 @@ export function HeroParallax() {
             </div>
           </div>
 
-          <div className="mt-4 grid gap-3 border border-white/12 bg-navy/35 p-4 md:hidden">
+          <div className="mt-4 border border-white/12 bg-navy/35 p-4 md:hidden">
             <div>
               <p className="font-body text-[0.62rem] font-medium uppercase tracking-[0.18em] text-gold">
                 Best mobile path
@@ -259,12 +303,32 @@ export function HeroParallax() {
               </p>
             </div>
           </div>
+
+          <details className="mt-4 border border-white/12 bg-white/6 p-4 md:hidden">
+            <summary className="cursor-pointer list-none font-body text-[0.68rem] font-medium uppercase tracking-[0.16em] text-white/88">
+              Explore top treatments
+            </summary>
+            <div className="mt-4 flex gap-3 overflow-x-auto pb-1">
+              {HERO_INTENT_SHORTCUTS.map((shortcut) => (
+                <TrackedLink
+                  key={`mobile-${shortcut.href}`}
+                  href={shortcut.href}
+                  eventName={TRACKING_EVENTS.appointmentCtaClick}
+                  eventData={{ source: 'hero-mobile-shortcuts' }}
+                  ctaLabel={shortcut.label}
+                  className="inline-flex shrink-0 border border-white/15 px-4 py-3 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/85"
+                >
+                  {shortcut.label}
+                </TrackedLink>
+              ))}
+            </div>
+          </details>
         </div>
       </div>
 
       <div className="absolute inset-x-0 bottom-0 z-10 border-t border-white/10">
-        <div className="container-shell flex flex-col gap-3 py-4 md:flex-row md:items-center md:justify-between md:gap-4 md:py-5">
-          <p className="font-heading text-xs italic text-white/50 md:text-sm">
+        <div className="container-shell flex items-center justify-between gap-4 py-4 md:flex-row md:items-center md:justify-between md:gap-4 md:py-5">
+          <p className="hidden font-heading text-xs italic text-white/50 md:block md:text-sm">
             {HERO_SLIDES[currentSlide]?.captionTopic}
           </p>
 

@@ -13,7 +13,7 @@ export function DentalTourismSection() {
 
   return (
     <section id="dental-tourism" className="relative overflow-hidden bg-navy py-24 md:py-36">
-      <div className="pointer-events-none absolute left-8 top-6 font-heading text-[9rem] leading-none text-gold/10 md:left-12 md:top-8 md:text-[14rem]">
+      <div className="pointer-events-none absolute left-8 top-6 hidden font-heading text-[9rem] leading-none text-gold/10 md:left-12 md:top-8 md:block md:text-[14rem]">
         "
       </div>
 
@@ -55,7 +55,7 @@ export function DentalTourismSection() {
               source="dental-tourism"
               intentKey="dental-tourism"
               branchId="branch-1"
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap gap-3 [&>*:first-child]:w-full [&>*:first-child]:justify-center [&>*:nth-child(2)]:hidden [&>*:nth-child(3)]:w-full [&>*:nth-child(3)]:justify-center md:gap-4 md:[&>*:first-child]:w-auto md:[&>*:nth-child(2)]:inline-flex md:[&>*:nth-child(3)]:w-auto"
               secondaryClassName="button-secondary border-white text-white hover:bg-white hover:text-navy"
               tertiaryClassName="font-body text-sm text-white/70 underline underline-offset-4 transition-colors duration-300 hover:text-white"
               showDirections={false}

@@ -154,12 +154,12 @@ export function Navbar() {
               <X className="h-6 w-6" />
             </button>
 
-            <div className="flex flex-col items-center gap-6">
+            <div className="flex flex-col items-center gap-5">
               {NAV_ITEMS.map((item) => (
                 <motion.div key={item.href} variants={linkVariants}>
                   <TrackedLink
                     href={item.href}
-                    className="font-heading text-4xl font-light text-white"
+                    className="font-heading text-[2rem] font-light text-white sm:text-4xl"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.label}
@@ -168,7 +168,11 @@ export function Navbar() {
               ))}
             </div>
 
-            <motion.div variants={linkVariants} className="absolute bottom-12 flex flex-col items-center gap-4">
+            <motion.div
+              variants={linkVariants}
+              className="absolute bottom-10 flex flex-col items-center gap-4 px-6 text-center"
+              style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+            >
               <TrackedLink
                 href={mobileWhatsappHref}
                 target="_blank"
