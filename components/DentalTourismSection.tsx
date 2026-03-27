@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
 
+import { LeadActionGroup } from '@/components/cta/LeadActionGroup';
 import { IMAGE_ASSETS, TOURISM_COPY } from '@/lib/clinic-data';
 
 export function DentalTourismSection() {
@@ -49,12 +50,18 @@ export function DentalTourismSection() {
             ))}
           </div>
 
-          <a
-            href={TOURISM_COPY.cta.href}
-            className="mt-10 inline-flex border border-gold px-8 py-4 font-body text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gold transition-colors duration-300 hover:bg-gold hover:text-navy"
-          >
-            {TOURISM_COPY.cta.label}
-          </a>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <LeadActionGroup
+              source="dental-tourism"
+              intentKey="dental-tourism"
+              branchId="branch-1"
+              className="flex flex-wrap gap-4"
+              secondaryClassName="button-secondary border-white text-white hover:bg-white hover:text-navy"
+              tertiaryClassName="font-body text-sm text-white/70 underline underline-offset-4 transition-colors duration-300 hover:text-white"
+              showDirections={false}
+              showFormLink
+            />
+          </div>
         </motion.div>
 
         <motion.div

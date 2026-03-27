@@ -1,12 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { Mail, Phone } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
+import { LeadActionGroup } from '@/components/cta/LeadActionGroup';
+import { TrackedLink } from '@/components/cta/TrackedLink';
 import { CTA_COPY, IMAGE_ASSETS } from '@/lib/clinic-data';
+import { TRACKING_EVENTS } from '@/lib/tracking';
 
 export function CtaBanner() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -86,29 +88,27 @@ export function CtaBanner() {
             }}
             className="mt-12 flex flex-wrap justify-center gap-4"
           >
-            <a href={CTA_COPY.primary.href} className="button-primary gap-3">
-              <Phone className="h-4 w-4" />
-              <span>{CTA_COPY.primary.label}</span>
-            </a>
-            <a
-              href={CTA_COPY.secondary.href}
-              className="button-secondary gap-3 border-white text-white hover:bg-white hover:text-navy"
-            >
-              <Phone className="h-4 w-4" />
-              <span>{CTA_COPY.secondary.label}</span>
-            </a>
+            <LeadActionGroup
+              source="cta-banner"
+              branchId="branch-1"
+              intentKey="general-consultation"
+              className="flex flex-wrap justify-center gap-4"
+              secondaryClassName="button-secondary border-white text-white hover:bg-white hover:text-navy"
+              tertiaryClassName="font-body text-sm text-white/70 underline underline-offset-4 transition-colors duration-300 hover:text-white"
+              showDirections={false}
+              showFormLink
+            />
           </div>
 
-          <a
-            ref={(node) => {
-              itemRefs.current[4] = node;
-            }}
+          <TrackedLink
             href={CTA_COPY.tertiary.href}
+            eventName={TRACKING_EVENTS.callClick}
+            eventData={{ source: 'cta-banner', branch_id: 'branch-1' }}
+            ctaLabel={CTA_COPY.tertiary.label}
             className="mt-6 inline-flex items-center gap-2 font-body text-sm text-white/60 underline underline-offset-4 transition-colors duration-300 hover:text-white"
           >
-            <Mail className="h-4 w-4" />
-            <span>{CTA_COPY.tertiary.label}</span>
-          </a>
+            {CTA_COPY.tertiary.label}
+          </TrackedLink>
         </div>
       </div>
     </section>

@@ -44,6 +44,11 @@ body {
   animation: fadeIn 0.5s ease;
 }
 
+:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
+}
+
 main {
   overflow: hidden;
 }
@@ -160,6 +165,12 @@ img {
   .container-shell {
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 5.5rem;
   }
 }
 

@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
 import { TESTIMONIALS, TESTIMONIALS_SECTION } from '@/lib/clinic-data';
+import { LeadActionGroup } from '@/components/cta/LeadActionGroup';
 
 export function TestimonialsSlider() {
   const [index, setIndex] = useState(0);
@@ -66,6 +67,9 @@ export function TestimonialsSlider() {
             <h2 className="mt-5 font-heading text-[clamp(2.5rem,4vw,4.5rem)] leading-[1.1] text-navy">
               {TESTIMONIALS_SECTION.heading}
             </h2>
+            <p className="mt-4 max-w-2xl font-body text-[1.02rem] font-light leading-relaxed text-muted">
+              Implant, smile design, root canal, and surgery visitors all need the same reassurance: expert handling, clear explanation, and a next step that feels easy to act on.
+            </p>
           </div>
 
           <div className="flex items-center gap-3">
@@ -132,6 +136,16 @@ export function TestimonialsSlider() {
               ))}
             </motion.div>
           </AnimatePresence>
+        </div>
+
+        <div className="mt-10 flex flex-wrap gap-4 border-t border-navy/10 pt-8">
+          <LeadActionGroup
+            source="testimonials-section"
+            branchId="branch-1"
+            intentKey="general-consultation"
+            className="flex flex-wrap gap-4"
+            showFormLink
+          />
         </div>
       </div>
     </section>

@@ -1,6 +1,16 @@
-import { Clock3, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowUpRight, Clock3, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 
-import { BRANCHES, CONTACT_COPY, CONTACT_DETAILS } from '@/lib/clinic-data';
+import { AppointmentRequestForm } from '@/components/forms/AppointmentRequestForm';
+import { LeadActionGroup } from '@/components/cta/LeadActionGroup';
+import { TrackedLink } from '@/components/cta/TrackedLink';
+import { BRANCHES, CONTACT_COPY, CONTACT_DECISION_CARDS, CONTACT_DETAILS } from '@/lib/clinic-data';
+import { buildWhatsAppUrl } from '@/lib/lead';
+import { TRACKING_EVENTS } from '@/lib/tracking';
+
+const quickWhatsappHref = buildWhatsAppUrl({
+  source: 'contact-decision-card',
+  intentKey: 'general-consultation'
+});
 
 export function ContactSection() {
   return (
@@ -16,105 +26,148 @@ export function ContactSection() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-12 lg:grid-cols-2">
+        <div className="mt-16 grid gap-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
-            <div className="mb-10 flex flex-col gap-5">
+            <div className="mb-8 grid gap-4 md:grid-cols-3">
+              {CONTACT_DECISION_CARDS.map((card) => {
+                const href = card.kind === 'whatsapp' ? quickWhatsappHref : card.href;
+                const isExternal = card.kind === 'whatsapp';
+                const icon =
+                  card.kind === 'whatsapp' ? (
+                    <MessageCircle className="h-4 w-4 text-teal" />
+                  ) : (
+                    <ArrowUpRight className="h-4 w-4 text-teal" />
+                  );
+
+                return (
+                  <TrackedLink
+                    key={card.title}
+                    href={href}
+                    target={isExternal ? '_blank' : undefined}
+                    rel={isExternal ? 'noreferrer' : undefined}
+                    eventName={
+                      card.kind === 'whatsapp'
+                        ? TRACKING_EVENTS.whatsappClick
+                        : TRACKING_EVENTS.appointmentCtaClick
+                    }
+                    eventData={{ source: 'contact-decision-cards' }}
+                    ctaLabel={card.title}
+                    className="border border-navy/10 bg-white p-5 transition-colors duration-300 hover:border-teal hover:bg-white"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <p className="font-body text-[0.7rem] font-medium uppercase tracking-[0.18em] text-gold">
+                        Next Step
+                      </p>
+                      {icon}
+                    </div>
+                    <h3 className="mt-4 font-heading text-[1.5rem] leading-tight text-navy">
+                      {card.title}
+                    </h3>
+                    <p className="mt-3 font-body text-sm font-light leading-relaxed text-muted">
+                      {card.description}
+                    </p>
+                  </TrackedLink>
+                );
+              })}
+            </div>
+
+            <div className="mb-10 grid gap-4 md:grid-cols-2">
+              <article className="border border-navy/10 bg-white p-6">
+                <div className="flex items-start gap-3">
+                  <MapPin className="mt-1 h-[18px] w-[18px] shrink-0 text-teal" />
+                  <div>
+                    <p className="font-body text-xs font-medium uppercase tracking-[0.18em] text-gold">
+                      Primary Branch
+                    </p>
+                    <p className="mt-2 font-heading text-2xl text-navy">{BRANCHES[0]?.name}</p>
+                    <p className="mt-2 font-body text-sm leading-relaxed text-charcoal">
+                      {BRANCHES[0]?.address}
+                    </p>
+                  </div>
+                </div>
+              </article>
+              <article className="border border-navy/10 bg-white p-6">
+                <div className="flex items-start gap-3">
+                  <MapPin className="mt-1 h-[18px] w-[18px] shrink-0 text-teal" />
+                  <div>
+                    <p className="font-body text-xs font-medium uppercase tracking-[0.18em] text-gold">
+                      Branch 2
+                    </p>
+                    <p className="mt-2 font-heading text-2xl text-navy">{BRANCHES[1]?.name}</p>
+                    <p className="mt-2 font-body text-sm leading-relaxed text-charcoal">
+                      {BRANCHES[1]?.address}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div className="grid gap-4 border border-navy/10 bg-white p-6 md:grid-cols-2">
               <div className="flex items-start gap-3">
-                <MapPin className="mt-1 h-[18px] w-[18px] shrink-0 text-teal" />
-                <div className="space-y-2">
-                  <p className="font-body text-sm leading-relaxed text-charcoal">
-                    {BRANCHES[0]?.address}
+                <Phone className="mt-1 h-[18px] w-[18px] shrink-0 text-teal" />
+                <div>
+                  <p className="font-body text-xs font-medium uppercase tracking-[0.18em] text-gold">
+                    Phone Support
                   </p>
-                  <p className="font-body text-sm leading-relaxed text-charcoal">
-                    {BRANCHES[1]?.address}
+                  <p className="mt-2 font-body text-sm leading-relaxed text-charcoal">
+                    {CONTACT_DETAILS.allPhones}
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Phone className="mt-1 h-[18px] w-[18px] shrink-0 text-teal" />
-                <p className="font-body text-sm leading-relaxed text-charcoal">
-                  {CONTACT_DETAILS.allPhones}
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <Mail className="mt-1 h-[18px] w-[18px] shrink-0 text-teal" />
-                <p className="font-body text-sm leading-relaxed text-charcoal">
-                  {CONTACT_DETAILS.email}
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
                 <Clock3 className="mt-1 h-[18px] w-[18px] shrink-0 text-teal" />
-                <p className="font-body text-sm leading-relaxed text-charcoal">
-                  {CONTACT_DETAILS.hours}
-                </p>
+                <div>
+                  <p className="font-body text-xs font-medium uppercase tracking-[0.18em] text-gold">
+                    Clinic Hours
+                  </p>
+                  <p className="mt-2 font-body text-sm leading-relaxed text-charcoal">
+                    {CONTACT_DETAILS.hours}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 md:col-span-2">
+                <Mail className="mt-1 h-[18px] w-[18px] shrink-0 text-teal" />
+                <div>
+                  <p className="font-body text-xs font-medium uppercase tracking-[0.18em] text-gold">
+                    Email
+                  </p>
+                  <p className="mt-2 font-body text-sm leading-relaxed text-charcoal">
+                    {CONTACT_DETAILS.email}
+                  </p>
+                </div>
               </div>
             </div>
 
-            <form
-              action={CONTACT_COPY.form.action}
-              method={CONTACT_COPY.form.method}
-              encType={CONTACT_COPY.form.encType}
-              className="space-y-4"
-            >
-              <div className="grid gap-4 md:grid-cols-2">
-                <input
-                  type="text"
-                  name="fullName"
-                  placeholder={CONTACT_COPY.form.fields.nameLabel}
-                  className="w-full rounded-none border border-gray-200 bg-white px-4 py-3 font-body text-sm text-charcoal transition-colors duration-300 focus:border-teal focus:outline-none"
-                  required
-                />
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder={CONTACT_COPY.form.fields.phoneLabel}
-                  className="w-full rounded-none border border-gray-200 bg-white px-4 py-3 font-body text-sm text-charcoal transition-colors duration-300 focus:border-teal focus:outline-none"
-                  required
-                />
+            <div className="mt-8 border border-navy/10 bg-white p-6 md:p-8">
+              <div className="mb-6 border-b border-navy/10 pb-6">
+                <p className="font-body text-[0.7rem] font-medium uppercase tracking-[0.18em] text-gold">
+                  Callback Form
+                </p>
+                <p className="mt-3 max-w-2xl font-body text-sm font-light leading-relaxed text-muted">
+                  Best for visitors who want the clinic to call back with branch and treatment context already attached.
+                </p>
               </div>
+              <AppointmentRequestForm />
+            </div>
 
-              <input
-                type="email"
-                name="email"
-                placeholder={CONTACT_COPY.form.fields.emailLabel}
-                className="w-full rounded-none border border-gray-200 bg-white px-4 py-3 font-body text-sm text-charcoal transition-colors duration-300 focus:border-teal focus:outline-none"
-                required
+            <div className="mt-6 flex flex-wrap gap-4">
+              <LeadActionGroup
+                source="contact-section"
+                branchId="branch-1"
+                intentKey="general-consultation"
+                className="flex flex-wrap gap-4"
+                showDirections
+                showFormLink={false}
               />
-
-              <select
-                name="treatment"
-                defaultValue={CONTACT_COPY.form.fields.options[0]}
-                className="w-full rounded-none border border-gray-200 bg-white px-4 py-3 font-body text-sm text-charcoal transition-colors duration-300 focus:border-teal focus:outline-none"
-              >
-                {CONTACT_COPY.form.fields.options.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-
-              <textarea
-                name="message"
-                rows={4}
-                placeholder={CONTACT_COPY.form.fields.messageLabel}
-                className="w-full rounded-none border border-gray-200 bg-white px-4 py-3 font-body text-sm text-charcoal transition-colors duration-300 focus:border-teal focus:outline-none"
-              />
-
-              <button
-                type="submit"
-                className="w-full bg-navy py-4 font-body text-[0.7rem] font-medium uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-teal"
-              >
-                {CONTACT_COPY.form.fields.submitLabel}
-              </button>
-            </form>
+            </div>
           </div>
 
-          <div className="overflow-hidden border-2 border-gold/40">
+          <div className="overflow-hidden border-2 border-gold/40 bg-white">
             <iframe
               src={CONTACT_COPY.mapEmbed}
               width="100%"
               height="100%"
-              style={{ border: 0, minHeight: '500px' }}
+              style={{ border: 0, minHeight: '640px' }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

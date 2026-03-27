@@ -7,7 +7,13 @@ import { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
-import { CONTACT_DETAILS, HERO_COPY, IMAGE_ASSETS, NAV_ITEMS } from '@/lib/clinic-data';
+import { TrackedLink } from '@/components/cta/TrackedLink';
+import { CONTACT_DETAILS, IMAGE_ASSETS, NAV_ITEMS } from '@/lib/clinic-data';
+import { buildCallHref, buildWhatsAppUrl } from '@/lib/lead';
+import { TRACKING_EVENTS } from '@/lib/tracking';
+
+const mobileWhatsappHref = buildWhatsAppUrl({ source: 'mobile-menu', intentKey: 'general-consultation' });
+const desktopWhatsappHref = buildWhatsAppUrl({ source: 'navbar', intentKey: 'general-consultation' });
 
 const overlayVariants = {
   hidden: { opacity: 0 },
@@ -64,15 +70,15 @@ export function Navbar() {
     };
   }, [isOpen]);
 
-  const navClassName = isScrolled
-    ? 'bg-navy/95 shadow-lg backdrop-blur-md'
-    : 'bg-transparent';
+  const navClassName = isScrolled ? 'bg-navy/95 shadow-lg backdrop-blur-md' : 'bg-transparent';
 
   return (
     <>
-      <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${navClassName}`}>
-        <div className="container-shell flex items-center justify-between gap-6 py-5">
-          <a href="#home" className="shrink-0" aria-label="Fresh Dent Family Care home">
+      <nav
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${navClassName}`}
+      >
+        <div className="container-shell flex items-center justify-between gap-4 py-4 md:py-5">
+          <TrackedLink href="/#home" className="shrink-0" ariaLabel="Fresh Dent Family Care home">
             <Image
               src={IMAGE_ASSETS.logo.src}
               alt={IMAGE_ASSETS.logo.alt}
@@ -81,34 +87,42 @@ export function Navbar() {
               priority={IMAGE_ASSETS.logo.priority}
               className="h-12 w-auto object-contain"
             />
-          </a>
+          </TrackedLink>
 
           <div className="hidden items-center gap-8 lg:flex">
             {NAV_ITEMS.map((item) => (
-              <a
+              <TrackedLink
                 key={item.href}
                 href={item.href}
                 className="nav-link-underline font-body text-[0.75rem] font-medium uppercase tracking-[0.15em] text-white"
               >
                 {item.label}
-              </a>
+              </TrackedLink>
             ))}
           </div>
 
-          <div className="hidden items-center gap-5 lg:flex">
-            <a
-              href={HERO_COPY.primaryCta.href}
+          <div className="hidden items-center gap-4 lg:flex">
+            <TrackedLink
+              href={buildCallHref('branch-1')}
+              eventName={TRACKING_EVENTS.callClick}
+              eventData={{ source: 'navbar', branch_id: 'branch-1' }}
+              ctaLabel={`Call ${CONTACT_DETAILS.primaryPhone}`}
               className="flex items-center gap-2 font-body text-sm text-white/80 transition-colors duration-300 hover:text-white"
             >
               <Phone className="h-4 w-4 text-gold" />
               <span>{CONTACT_DETAILS.primaryPhone}</span>
-            </a>
-            <a
-              href={HERO_COPY.primaryCta.href}
+            </TrackedLink>
+            <TrackedLink
+              href={desktopWhatsappHref}
+              target="_blank"
+              rel="noreferrer"
+              eventName={TRACKING_EVENTS.whatsappClick}
+              eventData={{ source: 'navbar', treatment_intent: 'general-consultation' }}
+              ctaLabel="Book on WhatsApp"
               className="bg-teal px-6 py-3 font-body text-[0.7rem] font-medium uppercase tracking-[0.15em] text-white transition-colors duration-300 hover:bg-gold hover:text-navy"
             >
-              {HERO_COPY.primaryCta.label}
-            </a>
+              Book on WhatsApp
+            </TrackedLink>
           </div>
 
           <button
@@ -142,36 +156,40 @@ export function Navbar() {
 
             <div className="flex flex-col items-center gap-6">
               {NAV_ITEMS.map((item) => (
-                <motion.a
-                  key={item.href}
-                  variants={linkVariants}
-                  href={item.href}
-                  className="font-heading text-4xl font-light text-white"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </motion.a>
+                <motion.div key={item.href} variants={linkVariants}>
+                  <TrackedLink
+                    href={item.href}
+                    className="font-heading text-4xl font-light text-white"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </TrackedLink>
+                </motion.div>
               ))}
             </div>
 
-            <motion.div
-              variants={linkVariants}
-              className="absolute bottom-12 flex flex-col items-center gap-5"
-            >
-              <a
-                href={HERO_COPY.primaryCta.href}
+            <motion.div variants={linkVariants} className="absolute bottom-12 flex flex-col items-center gap-4">
+              <TrackedLink
+                href={mobileWhatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                eventName={TRACKING_EVENTS.whatsappClick}
+                eventData={{ source: 'mobile-menu', treatment_intent: 'general-consultation' }}
+                ctaLabel="Book on WhatsApp"
+                className="bg-teal px-8 py-4 font-body text-[0.72rem] font-medium uppercase tracking-[0.18em] text-white transition-colors duration-300 hover:bg-gold hover:text-navy"
+              >
+                Book on WhatsApp
+              </TrackedLink>
+              <TrackedLink
+                href={buildCallHref('branch-1')}
+                eventName={TRACKING_EVENTS.callClick}
+                eventData={{ source: 'mobile-menu', branch_id: 'branch-1' }}
+                ctaLabel={`Call ${CONTACT_DETAILS.primaryPhone}`}
                 className="flex items-center gap-2 font-body text-sm tracking-[0.1em] text-white/75"
               >
                 <Phone className="h-4 w-4 text-gold" />
                 <span>{CONTACT_DETAILS.primaryPhone}</span>
-              </a>
-              <a
-                href={HERO_COPY.primaryCta.href}
-                className="bg-teal px-8 py-4 font-body text-[0.72rem] font-medium uppercase tracking-[0.18em] text-white transition-colors duration-300 hover:bg-gold hover:text-navy"
-                onClick={() => setIsOpen(false)}
-              >
-                {HERO_COPY.primaryCta.label}
-              </a>
+              </TrackedLink>
             </motion.div>
           </motion.div>
         ) : null}

@@ -6,7 +6,15 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
-import { HERO_COPY, HERO_SLIDES } from '@/lib/clinic-data';
+import { TrackedLink } from '@/components/cta/TrackedLink';
+import { HERO_COPY, HERO_INTENT_SHORTCUTS, HERO_SLIDES } from '@/lib/clinic-data';
+import { buildWhatsAppUrl } from '@/lib/lead';
+import { TRACKING_EVENTS } from '@/lib/tracking';
+
+const heroWhatsappHref = buildWhatsAppUrl({
+  source: 'hero-primary-cta',
+  intentKey: 'general-consultation'
+});
 
 export function HeroParallax() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -57,19 +65,6 @@ export function HeroParallax() {
           stagger: 0.12,
           ease: 'power3.out',
           delay: 0.3
-        });
-      }
-
-      if (sectionRef.current) {
-        gsap.to(sectionRef.current, {
-          yPercent: 8,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true
-          }
         });
       }
     }, sectionRef);
@@ -166,17 +161,17 @@ export function HeroParallax() {
       ))}
 
       <div className="container-shell relative z-10 flex w-full items-center">
-        <div className="max-w-3xl py-28 md:py-36 lg:py-40">
+        <div className="max-w-3xl py-24 md:py-36 lg:py-40">
           <p
             ref={overlineRef}
-            className="font-body text-[0.65rem] font-medium uppercase tracking-[0.25em] text-gold"
+            className="max-w-[18rem] font-body text-[0.62rem] font-medium uppercase tracking-[0.22em] text-gold md:max-w-none md:text-[0.65rem] md:tracking-[0.25em]"
           >
             {HERO_COPY.overline}
           </p>
 
           <h1
             ref={headingRef}
-            className="mt-4 max-w-2xl font-heading text-[clamp(3.5rem,6vw,7rem)] font-light leading-[1.05] tracking-[-0.02em] text-white"
+            className="mt-4 max-w-2xl font-heading text-[clamp(2.9rem,12vw,7rem)] font-light leading-[0.98] tracking-[-0.02em] text-white md:leading-[1.05]"
           >
             {HERO_COPY.titleLines.map((line) => (
               <span key={line} className="block">
@@ -189,34 +184,87 @@ export function HeroParallax() {
 
           <p
             ref={subtitleRef}
-            className="max-w-lg font-body text-[1.05rem] font-light leading-relaxed text-white/75"
+            className="max-w-xl font-body text-[0.97rem] font-light leading-relaxed text-white/75 md:text-[1.02rem]"
           >
             {HERO_COPY.subtitle}
           </p>
 
-          <div ref={bulletsRef} className="mt-6 flex flex-col gap-2">
-            {HERO_COPY.bullets.map((bullet) => (
-              <div key={bullet} className="flex items-center gap-3">
+          <div ref={bulletsRef} className="mt-5 flex flex-col gap-2 md:mt-6">
+            {HERO_COPY.bullets.slice(0, 2).map((bullet) => (
+              <div key={bullet} className="flex items-center gap-3 md:hidden">
                 <CheckCircle2 className="h-4 w-4 text-teal" />
                 <span className="font-body text-sm text-white/80">{bullet}</span>
               </div>
             ))}
+            {HERO_COPY.bullets.map((bullet) => (
+              <div key={bullet} className="flex items-center gap-3">
+                <CheckCircle2 className="h-4 w-4 text-teal" />
+                <span className="hidden font-body text-sm text-white/80 md:inline">
+                  {bullet}
+                </span>
+              </div>
+            ))}
           </div>
 
-          <div ref={ctasRef} className="mt-10 flex flex-wrap gap-4">
-            <a href={HERO_COPY.primaryCta.href} className="button-primary">
+          <div ref={ctasRef} className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap md:mt-8">
+            <TrackedLink
+              href={heroWhatsappHref}
+              target="_blank"
+              rel="noreferrer"
+              eventName={TRACKING_EVENTS.whatsappClick}
+              eventData={{ source: 'hero-primary-cta', treatment_intent: 'general-consultation' }}
+              ctaLabel={HERO_COPY.primaryCta.label}
+              className="button-primary w-full sm:w-auto"
+            >
               {HERO_COPY.primaryCta.label}
-            </a>
-            <a href={HERO_COPY.secondaryCta.href} className="button-secondary">
+            </TrackedLink>
+            <TrackedLink
+              href={HERO_COPY.secondaryCta.href}
+              eventName={TRACKING_EVENTS.appointmentCtaClick}
+              eventData={{ source: 'hero-secondary-cta' }}
+              ctaLabel={HERO_COPY.secondaryCta.label}
+              className="button-secondary w-full sm:w-auto"
+            >
               {HERO_COPY.secondaryCta.label}
-            </a>
+            </TrackedLink>
+          </div>
+
+          <div className="mt-6 max-w-2xl border border-white/12 bg-white/6 p-4 backdrop-blur-sm md:mt-8 md:p-5">
+            <p className="font-body text-[0.68rem] font-medium uppercase tracking-[0.18em] text-gold">
+              High-intent shortcuts
+            </p>
+            <div className="mt-4 flex gap-3 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible md:pb-0">
+              {HERO_INTENT_SHORTCUTS.map((shortcut) => (
+                <TrackedLink
+                  key={shortcut.href}
+                  href={shortcut.href}
+                  eventName={TRACKING_EVENTS.appointmentCtaClick}
+                  eventData={{ source: 'hero-shortcuts' }}
+                  ctaLabel={shortcut.label}
+                  className="inline-flex shrink-0 border border-white/15 px-4 py-3 font-body text-[0.68rem] font-medium uppercase tracking-[0.15em] text-white/85 transition-colors duration-300 hover:border-gold hover:bg-white/8 hover:text-white"
+                >
+                  {shortcut.label}
+                </TrackedLink>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-4 grid gap-3 border border-white/12 bg-navy/35 p-4 md:hidden">
+            <div>
+              <p className="font-body text-[0.62rem] font-medium uppercase tracking-[0.18em] text-gold">
+                Best mobile path
+              </p>
+              <p className="mt-2 font-body text-sm font-light leading-relaxed text-white/78">
+                WhatsApp for fastest response. Callback form if you want the clinic to contact you with branch and treatment context.
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="absolute inset-x-0 bottom-0 z-10 border-t border-white/10">
-        <div className="container-shell flex flex-col gap-4 py-5 md:flex-row md:items-center md:justify-between">
-          <p className="font-heading text-sm italic text-white/50">
+        <div className="container-shell flex flex-col gap-3 py-4 md:flex-row md:items-center md:justify-between md:gap-4 md:py-5">
+          <p className="font-heading text-xs italic text-white/50 md:text-sm">
             {HERO_SLIDES[currentSlide]?.captionTopic}
           </p>
 
@@ -226,7 +274,7 @@ export function HeroParallax() {
                 key={slide.captionTopic}
                 type="button"
                 onClick={() => setCurrentSlide(index)}
-                className={`transition-all duration-500 ${
+                className={`transition-[width,background-color] duration-500 ${
                   currentSlide === index ? 'h-2 w-6 bg-teal' : 'h-2 w-2 bg-white/30'
                 }`}
                 aria-label={slide.captionTopic}
@@ -234,7 +282,7 @@ export function HeroParallax() {
             ))}
           </div>
 
-          <p className="font-body text-xs font-light tracking-[0.2em] text-white/40">
+          <p className="font-body text-[0.65rem] font-light tracking-[0.2em] text-white/40 md:text-xs">
             {String(currentSlide + 1).padStart(2, '0')} / {String(HERO_SLIDES.length).padStart(2, '0')}
           </p>
         </div>

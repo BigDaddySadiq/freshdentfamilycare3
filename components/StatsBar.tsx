@@ -1,68 +1,45 @@
-'use client';
+import {
+  MapPinned,
+  MessageSquareShare,
+  ScanLine,
+  ShieldCheck,
+  type LucideIcon
+} from 'lucide-react';
 
-import { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { TRUST_HIGHLIGHTS } from '@/lib/clinic-data';
 
-import { STATS, type Stat } from '@/lib/clinic-data';
-
-function AnimatedStat({ stat, index }: { stat: Stat; index: number }) {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useEffect(() => {
-    if (!inView) {
-      return;
-    }
-
-    let frameId = 0;
-    const duration = 2000;
-    const start = performance.now();
-
-    const easeOutExpo = (progress: number) =>
-      progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-
-    const step = (timestamp: number) => {
-      const elapsed = Math.min((timestamp - start) / duration, 1);
-      const eased = easeOutExpo(elapsed);
-      setDisplayValue(Math.round(stat.value * eased));
-
-      if (elapsed < 1) {
-        frameId = window.requestAnimationFrame(step);
-      }
-    };
-
-    frameId = window.requestAnimationFrame(step);
-
-    return () => {
-      window.cancelAnimationFrame(frameId);
-    };
-  }, [inView, stat.value]);
-
-  return (
-    <div
-      ref={ref}
-      className={`px-6 py-4 text-center md:px-8 ${
-        index < STATS.length - 1 ? 'border-b border-white/15 md:border-b-0 md:border-r' : ''
-      }`}
-    >
-      <div className="font-heading text-[clamp(2.5rem,4vw,4rem)] font-semibold text-gold">
-        {displayValue.toLocaleString()}
-        {stat.suffix}
-      </div>
-      <p className="mt-2 font-body text-[0.7rem] font-medium uppercase tracking-[0.18em] text-white/50">
-        {stat.label}
-      </p>
-    </div>
-  );
-}
+const iconMap: Record<string, LucideIcon> = {
+  ShieldCheck,
+  MapPinned,
+  ScanLine,
+  MessageSquareShare
+};
 
 export function StatsBar() {
   return (
-    <section className="bg-navy py-16">
-      <div className="container-shell grid grid-cols-1 md:grid-cols-4">
-        {STATS.map((stat, index) => (
-          <AnimatedStat key={stat.label} stat={stat} index={index} />
-        ))}
+    <section className="bg-navy py-10 md:py-12">
+      <div className="container-shell grid gap-px bg-white/10 md:grid-cols-2 xl:grid-cols-4">
+        {TRUST_HIGHLIGHTS.map((highlight) => {
+          const Icon = iconMap[highlight.icon];
+
+          return (
+            <article key={highlight.title} className="bg-navy px-6 py-6 md:px-8">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 items-center justify-center border border-gold/30 bg-white/5 text-gold">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="font-body text-[0.72rem] font-medium uppercase tracking-[0.18em] text-gold">
+                    {highlight.title}
+                  </p>
+                  <p className="mt-3 font-body text-sm font-light leading-relaxed text-white/70">
+                    {highlight.description}
+                  </p>
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );

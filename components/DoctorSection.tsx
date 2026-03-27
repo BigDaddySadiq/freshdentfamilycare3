@@ -4,13 +4,16 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
+import { LeadActionGroup } from '@/components/cta/LeadActionGroup';
+import { TrackedLink } from '@/components/cta/TrackedLink';
 import { DOCTOR, DOCTOR_SECTION_COPY, IMAGE_ASSETS } from '@/lib/clinic-data';
+import { TRACKING_EVENTS } from '@/lib/tracking';
 
 export function DoctorSection() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
-    <section className="bg-navy">
+    <section id="doctor" className="bg-navy">
       <div ref={ref} className="grid min-h-[90vh] items-stretch lg:grid-cols-12">
         <div className="relative lg:col-span-5">
           <Image
@@ -65,6 +68,17 @@ export function DoctorSection() {
               </p>
             </div>
 
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              <div className="border border-white/10 bg-white/5 p-4">
+                <p className="font-body text-xs uppercase tracking-[0.18em] text-gold">Academic Role</p>
+                <p className="mt-3 font-body text-sm leading-relaxed text-white/70">{DOCTOR.academic}</p>
+              </div>
+              <div className="border border-white/10 bg-white/5 p-4">
+                <p className="font-body text-xs uppercase tracking-[0.18em] text-gold">Experience</p>
+                <p className="mt-3 font-body text-sm leading-relaxed text-white/70">{DOCTOR.experience}</p>
+              </div>
+            </div>
+
             <div className="my-7 h-px w-12 bg-gold" />
 
             <div className="space-y-5">
@@ -89,9 +103,53 @@ export function DoctorSection() {
               ))}
             </div>
 
-            <a href={DOCTOR_SECTION_COPY.cta.href} className="button-primary mt-10">
-              {DOCTOR_SECTION_COPY.cta.label}
-            </a>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <LeadActionGroup
+                source="doctor-section"
+                branchId="branch-1"
+                intentKey="general-consultation"
+                className="flex flex-wrap gap-4"
+                secondaryClassName="button-secondary border-white text-white hover:bg-white hover:text-navy"
+                tertiaryClassName="font-body text-sm text-white/70 underline underline-offset-4 transition-colors duration-300 hover:text-white"
+                showDirections={false}
+                showFormLink
+              />
+            </div>
+
+            <div className="mt-8 border border-white/10 bg-white/5 p-5">
+              <p className="font-body text-[0.68rem] font-medium uppercase tracking-[0.18em] text-gold">
+                Specialist-led treatment pages
+              </p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <TrackedLink
+                  href="/services/oral-maxillofacial-surgery"
+                  eventName={TRACKING_EVENTS.appointmentCtaClick}
+                  eventData={{ source: 'doctor-section', treatment_page: 'oral-maxillofacial-surgery' }}
+                  ctaLabel="Oral and Maxillofacial Surgery"
+                  className="inline-flex border border-white/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/80 transition-colors duration-300 hover:border-gold hover:text-white"
+                >
+                  Oral and Maxillofacial Surgery
+                </TrackedLink>
+                <TrackedLink
+                  href="/services/dental-implants"
+                  eventName={TRACKING_EVENTS.appointmentCtaClick}
+                  eventData={{ source: 'doctor-section', treatment_page: 'dental-implants' }}
+                  ctaLabel="Dental Implants"
+                  className="inline-flex border border-white/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/80 transition-colors duration-300 hover:border-gold hover:text-white"
+                >
+                  Dental Implants
+                </TrackedLink>
+                <TrackedLink
+                  href="/services/wisdom-tooth-removal"
+                  eventName={TRACKING_EVENTS.appointmentCtaClick}
+                  eventData={{ source: 'doctor-section', treatment_page: 'wisdom-tooth-removal' }}
+                  ctaLabel="Wisdom Tooth Removal"
+                  className="inline-flex border border-white/10 px-3 py-2 font-body text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/80 transition-colors duration-300 hover:border-gold hover:text-white"
+                >
+                  Wisdom Tooth Removal
+                </TrackedLink>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

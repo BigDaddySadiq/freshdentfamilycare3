@@ -5,10 +5,17 @@ import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
 
+import { TrackedLink } from '@/components/cta/TrackedLink';
 import { ABOUT_COPY, IMAGE_ASSETS } from '@/lib/clinic-data';
+import { buildWhatsAppUrl } from '@/lib/lead';
+import { TRACKING_EVENTS } from '@/lib/tracking';
 
 export function WelcomeSection() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
+  const welcomeWhatsappHref = buildWhatsAppUrl({
+    source: 'welcome-section',
+    intentKey: 'general-consultation'
+  });
 
   return (
     <section id="about" className="bg-cream py-24 md:py-36">
@@ -45,12 +52,17 @@ export function WelcomeSection() {
             ))}
           </div>
 
-          <a
-            href={ABOUT_COPY.cta.href}
+          <TrackedLink
+            href={welcomeWhatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            eventName={TRACKING_EVENTS.whatsappClick}
+            eventData={{ source: 'welcome-section', treatment_intent: 'general-consultation' }}
+            ctaLabel={ABOUT_COPY.cta.label}
             className="mt-10 inline-flex border-b border-teal pb-0.5 font-body font-medium text-teal transition-colors duration-300 hover:border-navy hover:text-navy"
           >
             {ABOUT_COPY.cta.label}
-          </a>
+          </TrackedLink>
         </motion.div>
 
         <motion.div

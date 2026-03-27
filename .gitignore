@@ -23,6 +23,13 @@ Thumbs.db
 node_modules/
 .next/
 out/
+.env
+.env.*
+!.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -42,11 +49,13 @@ ENV/
 # Logs
 *.log
 logs/
+data/*.ndjson
 
 # Temporary files
 *.tmp
 *.temp
 .cache/
+localhost-*.png
 
 # Testing
 coverage/
@@ -79,3 +88,4 @@ integrations/qwen/agents/
 integrations/kimi/*/
 !integrations/openclaw/README.md
 !integrations/kimi/README.md
+.vercel
