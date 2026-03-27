@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
   AlignCenter,
@@ -38,11 +37,6 @@ const iconMap: Record<string, LucideIcon> = {
   Heart
 };
 
-const serviceVisuals = {
-  'Maxillo Facial Surgery': IMAGE_ASSETS.flapSurgery,
-  'Advanced Digital Smile Designing': IMAGE_ASSETS.smileDesign
-} as const;
-
 const containerVariants = {
   hidden: {},
   visible: {
@@ -64,21 +58,14 @@ const itemVariants = {
   }
 };
 
+const WHATSAPP_ENQUIRE_URL =
+  'https://api.whatsapp.com/send/?phone=916300643128&text&type=phone_number&app_absent=0';
+
 export function ServicesGrid() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
     <section id="services" className="relative overflow-hidden bg-white py-24 md:py-36">
-      <div className="pointer-events-none absolute right-0 top-0 h-56 w-56 opacity-10 md:h-72 md:w-72">
-        <Image
-          src={IMAGE_ASSETS.dentalProcedureCloseup.src}
-          alt={IMAGE_ASSETS.dentalProcedureCloseup.alt}
-          fill
-          sizes="18rem"
-          className="object-cover"
-        />
-      </div>
-
       <div className="container-shell relative z-10">
         <div className="mx-auto max-w-3xl text-center">
           <p className="section-label">{SERVICES_SECTION.label}</p>
@@ -99,7 +86,6 @@ export function ServicesGrid() {
         >
           {SERVICES.map((service) => {
             const Icon = iconMap[service.icon];
-            const accentImage = serviceVisuals[service.title as keyof typeof serviceVisuals];
 
             return (
               <motion.article
@@ -107,18 +93,6 @@ export function ServicesGrid() {
                 variants={itemVariants}
                 className="group relative overflow-hidden border-t-2 border-t-transparent bg-white p-8 transition-all duration-300 hover:border-t-teal hover:shadow-xl md:p-10"
               >
-                {accentImage ? (
-                  <div className="pointer-events-none absolute inset-y-0 right-0 w-28 opacity-20 transition-opacity duration-300 group-hover:opacity-30">
-                    <Image
-                      src={accentImage.src}
-                      alt={accentImage.alt}
-                      fill
-                      sizes="7rem"
-                      className="object-cover"
-                    />
-                  </div>
-                ) : null}
-
                 <div className="relative z-10">
                   <Icon className="mb-5 h-8 w-8 text-teal" />
                   <h3 className="font-heading text-[1.4rem] font-semibold leading-tight text-navy">
@@ -127,9 +101,12 @@ export function ServicesGrid() {
                   <p className="mt-3 font-body text-[0.88rem] font-light leading-relaxed text-muted">
                     {service.description}
                   </p>
-                  <span className="mt-5 inline-block translate-y-2 font-body text-xs uppercase tracking-[0.18em] text-teal opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                  <a
+                    href={WHATSAPP_ENQUIRE_URL}
+                    className="relative z-20 mt-5 inline-block translate-y-2 cursor-pointer font-body text-xs uppercase tracking-[0.18em] text-teal opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                  >
                     {service.enquiryLabel}
-                  </span>
+                  </a>
                 </div>
               </motion.article>
             );
